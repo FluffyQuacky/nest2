@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>스크롤 배너 효과</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 2000px; /* 스크롤 테스트용 */
+      background: #f6f6f6;
+    }
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      background: #fff;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      z-index: 99;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: height 0.3s;
+      overflow: hidden;
+      height: 320px;
+    }
+    .header.shrink {
+      height: 80px;
+    }
+    .header-image {
+      height: 280px;
+      width: 280px;
+      border-radius: 24px;
+      object-fit: cover;
+      transition: height 0.3s, width 0.3s, border-radius 0.3s;
+    }
+    .header.shrink .header-image {
+      height: 56px;
+      width: 56px;
+      border-radius: 50%;
+    }
+    .banner-text {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #222;
+      margin-left: 32px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+    }
+    .header.shrink .banner-text {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .dummy-content {
+      margin-top: 340px;
+      padding: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header" id="header">
+    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=facearea&w=640&h=640&q=80" class="header-image" id="headerImage" alt="profile"/>
+    <div class="banner-text" id="bannerText">여기는 배너 텍스트!</div>
+  </div>
+  <div class="dummy-content">
+    <h1>스크롤해서 효과 확인해보세요!</h1>
+    <p>아래로 스크롤하면 이미지가 작아지고, 배너 텍스트가 나타납니다.</p>
+    <p>코드 커스텀하고 싶으면 언제든 물어봐도 돼요 :)</p>
+  </div>
+
+  <script>
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        header.classList.add('shrink');
+      } else {
+        header.classList.remove('shrink');
+      }
+    });
+  </script>
+</body>
+</html>
